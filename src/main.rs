@@ -11,5 +11,5 @@ fn main() {
     
     let mut rows: u8; 
     let mut cols: u8; 
-    let grid: *mut u8;   
+    let mut grid = Vec::new();
 }
