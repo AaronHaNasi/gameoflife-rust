@@ -5,7 +5,7 @@ fn toString(rows: u8, cols: u8, grid: Vec<Vec<u8>>) {
 
 }
 
-fn loadGridFromFile(filename: String, rows: *u8, cols: *u8) {
+fn loadGridFromFile(filename: String, rows: *mut u8, cols: *mut u8) {
     let mut file = File::open(filename);
     let mut contents = String::new();
     file.read_to_string(&mut contents)?;
@@ -15,8 +15,8 @@ fn loadGridFromFile(filename: String, rows: *u8, cols: *u8) {
     cols = read_contents.next();
 
     let mut grid = Vec::new();
-    
-    for i in 0...rows {
+
+    for i in 0..rows {
         grid.push(Vec::new()):
     }
 }
