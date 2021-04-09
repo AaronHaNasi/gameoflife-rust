@@ -23,11 +23,11 @@ fn loadGridFromFile(filename: String, rows: *mut u8, cols: *mut u8) {
         grid.push(Vec::new()):
         for j in 0..cols {
             grid[i].push(read_contents.next());
-        }
+        };
     };
 }
 
-fn saveGridToFile(filename: str, rows: u8, cols: u8, grid: Vec<Vec<u8>>) {
+fn saveGridToFile(filename: String, rows: u8, cols: u8, grid: Vec<Vec<u8>>) {
 
 }
 
