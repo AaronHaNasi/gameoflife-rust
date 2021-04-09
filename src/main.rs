@@ -1,5 +1,8 @@
 use std::env;
 use std::process; 
+mod life;
+use life::*; 
+
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -11,5 +14,5 @@ fn main() {
     
     let mut rows: u8; 
     let mut cols: u8; 
-    let mut grid = Vec::new();
+    let mut grid = loadGridFromFile(args[1], &rows, &cols);
 }
