@@ -1,5 +1,7 @@
 use std::env;
 use std::process;
+use std::io;
+use std::io::*;
 mod life;
 use life::*;
 
@@ -8,7 +10,10 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() != 2 {
-        print!("Wrong number of arguments to program. This program requires a filename as an argument.\nUsage: ./driver filename\nExample: ./driver beacon.gol\n");
+        print!("Wrong number of arguments to program.");
+        print!("This program requires a filename as an argument.");
+        println!("Usage: ./driver filename"); 
+        println!("Example: ./driver beacon.gol");
         process::exit(1);
     }
     
@@ -25,4 +30,23 @@ fn main() {
 
     let display_string = life::to_string(grid); 
     println!("{}\n", display_string);  
+    
+    let mut user_input: String = "".to_string();
+    
+    loop {
+        print!("Press q to quit, n to iterate, w to save to file, or any other key to move to next generation: "); 
+
+        stdin().read_line(&mut user_input);
+
+        if user_input == "q" {
+            break
+        } else if user_input == "n" {
+            print!("How many iterations? "); 
+        } else if user_input == "w" {
+            print!("Input file name: "); 
+            stdin().read_line(&mut user_input); 
+        } else {
+
+        }
+    }
 }
