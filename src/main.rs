@@ -14,5 +14,5 @@ fn main() {
 
     let mut rows: u8;
     let mut cols: u8;
-    let mut grid = life::loadGridFromFile(args[1], &rows, &cols);
+    let mut gameInfo = life::loadGridFromFile(args[1]);
 }
