@@ -52,5 +52,53 @@ pub fn mutate_grid(rows: u8, cols: u8, grid: Vec<Vec<u8>>) {
 }
 
 fn nbr_of_neighbors(i: u8, j: u8, rows: u8, cols: u8, grid: Vec<Vec<u8>>) {
+    let neighbors = 0;
+    
+    if i > 0 {
+        if grid[i-1][j] == 1 {
+            neighbors = neighbors + 1; 
+        }
+    } 
 
+    if j > 0 {
+        if grid[i][j-1] == 1 {
+            neighbors = neighbors + 1; 
+        }
+    } 
+
+    if i+1 < rows {
+        if grid[i+1][j] == 1 {
+            neighbors = neighbors + 1; 
+        }
+    } 
+
+    if j+1 < cols {
+        if grid[i][j+1] == 1 {
+            neighbors = neighbors + 1; 
+        }
+    }
+
+    if i > 0 && j > 0 {
+        if grid[i-1][j-1] == 1 {
+            neighbors = neighbors + 1; 
+        }
+    }
+
+    if i + 1 < rows && j > 0 {
+        if grid[i+1][j-1] == 1 {
+            neighbors = neighbors + 1; 
+        }
+    } 
+
+    if i > 0 && j + 1 < cols {
+        if grid[i-1][j+1] == 1 {
+            neighbors = neighbors + 1; 
+        }   
+    }
+
+    if i + 1 < rows && j + 1 < cols {
+        if grid[i+1][j+1] == 1 {
+            neighbors = neighbors + 1; 
+        }
+    }
 }
