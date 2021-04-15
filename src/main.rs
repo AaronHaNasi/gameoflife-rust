@@ -19,33 +19,36 @@ fn main() {
     
     let mut rows: u8;
     let mut cols: u8;
-    
     let filename = &args[1];
     
     let mut game_info = life::load_grid_from_file(filename.to_string());
     
-    let grid = game_info.0;
+    let mut grid = game_info.0;
     let rows = game_info.1;
     let cols = game_info.2;
 
-    let display_string = life::to_string(grid); 
-    println!("{}\n", display_string);  
+    let mut display_string = life::to_string(&grid);
+    // println!("{}\n", display_string);
     
     let mut user_input: String = "".to_string();
     
     loop {
-        print!("Press q to quit, n to iterate, w to save to file, or any other key to move to next generation: "); 
+
+        println!("{}\n", display_string);
+        println!("Press q to quit, n to iterate, w to save to file, or any other key to move to next generation: ");
 
         stdin().read_line(&mut user_input);
 
-        if user_input == "q" {
+        if user_input == "q\n" {
             break
-        } else if user_input == "n" {
+        } else if user_input == "n\n" {
             print!("How many iterations? "); 
-        } else if user_input == "w" {
+        } else if user_input == "w\n" {
             print!("Input file name: "); 
             stdin().read_line(&mut user_input); 
         } else {
+            grid = mutate_grid(rows, cols, &grid);
+            display_string = to_string(&grid);
 
         }
     }

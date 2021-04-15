@@ -2,7 +2,7 @@ use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 
-pub fn to_string(grid: Vec<Vec<u8>>) -> String {
+pub fn to_string(grid: &Vec<Vec<u8>>) -> String {
     let mut return_string: String = "".to_string(); 
     
     for i in 0..grid.len() {
@@ -43,7 +43,7 @@ pub fn save_grid_to_file(filename: String, rows: u8, cols: u8, grid: Vec<Vec<u8>
 
 }
 
-fn copy_grid(rows: u8, cols: u8, grid: Vec<Vec<u8>>) -> Vec<Vec<u8>> {
+fn copy_grid(rows: u8, cols: u8, grid: &Vec<Vec<u8>>) -> Vec<Vec<u8>> {
     let mut copy_of_grid = vec![vec![0; rows.into()]; cols.into()];
 
     for i in 0..grid.len() {
@@ -54,9 +54,9 @@ fn copy_grid(rows: u8, cols: u8, grid: Vec<Vec<u8>>) -> Vec<Vec<u8>> {
     copy_of_grid
 }
 
-pub fn mutate_grid(rows: u8, cols: u8, grid: Vec<Vec<u8>>) -> Vec<Vec<u8>> {
-    let mut temp_grid = copy_grid(rows, cols, grid);
-
+pub fn mutate_grid(rows: u8, cols: u8, grid: &Vec<Vec<u8>>) -> Vec<Vec<u8>> {
+    let mut temp_grid = copy_grid(rows, cols, &grid);
+    // let grid_copy = copy_grid(rows, cols, grid);
     for i in 0..temp_grid.len() {
         for j in 0..temp_grid[i].len() {
             let neighbors = nbr_of_neighbors(i, j, rows, cols, &grid);
