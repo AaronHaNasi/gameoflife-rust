@@ -1,6 +1,5 @@
 use std::fs; 
 use std::fs::File;
-use std::io::Write; 
 
 pub fn to_string(grid: &Vec<Vec<u8>>) -> String {
     let mut return_string: String = "".to_string(); 
@@ -56,10 +55,7 @@ pub fn save_grid_to_file(filename: &String, rows: u8, cols: u8, grid: &Vec<Vec<u
     
     file_string.push('\n'); 
 
-    let mut output_file = File::create(filename);
-    // output_file.write(file_string.as_str().as_bytes())?;  
-    // Ok(())
-    println!("{}", file_string); 
+    let _output_file = File::create(filename);
     fs::write(filename, file_string).expect("unable to write to file"); 
 }
 
