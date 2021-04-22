@@ -1,6 +1,5 @@
 use std::env;
 use std::process;
-use std::io;
 use std::io::*;
 mod life;
 use life::*;
@@ -9,7 +8,7 @@ fn get_user_input() -> String {
     let mut user_input = "".to_string();
     
     let _=stdout().flush(); 
-    stdin().read_line(&mut user_input);
+    let _result = stdin().read_line(&mut user_input);
     if let Some('\n')=user_input.chars().next_back() {
         user_input.pop();
     }
@@ -30,11 +29,9 @@ fn main() {
         process::exit(1);
     }
     
-    let mut rows: u8;
-    let mut cols: u8;
     let filename = &args[1];
     
-    let mut game_info = life::load_grid_from_file(filename.to_string());
+    let game_info = life::load_grid_from_file(filename.to_string());
     
     let mut grid = game_info.0;
     let rows = game_info.1;
@@ -52,7 +49,7 @@ fn main() {
         if user_input == "q" {
             break
         } else if user_input == "n" {
-            println!("How many iterations? ");
+            print!("How many iterations? ");
             user_input = get_user_input(); 
             let mut iterations: i32 = user_input.parse().unwrap(); 
             while iterations > 0 {
@@ -61,13 +58,12 @@ fn main() {
             }
             
         } else if user_input == "w" {
-            println!("Input file name: "); 
-            user_input = get_user_input(); 
+            print!("Input file name: "); 
+            user_input = get_user_input();
+            let _result = save_grid_to_file(&user_input, rows, cols, &grid); 
 
         } else {
             grid = mutate_grid(rows, cols, &grid);
-            display_string = to_string(&grid);
-
         }
         display_string = life::to_string(&grid); 
     }

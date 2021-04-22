@@ -1,6 +1,6 @@
 use std::fs; 
 use std::fs::File;
-use std::io::prelude::*;
+use std::io::Write; 
 
 pub fn to_string(grid: &Vec<Vec<u8>>) -> String {
     let mut return_string: String = "".to_string(); 
@@ -20,10 +20,8 @@ pub fn to_string(grid: &Vec<Vec<u8>>) -> String {
 
 pub fn load_grid_from_file(filename: String) -> (Vec<Vec<u8>>, u8, u8) {
 
-    let mut contents = fs::read_to_string(filename).unwrap(); 
+    let contents = fs::read_to_string(filename).unwrap(); 
     let mut iterator = contents.split_whitespace(); 
-
-    // let mut read_contents = contents.lines();
 
     let rows: u8 = iterator.next().unwrap().parse().unwrap();
     let cols: u8 = iterator.next().unwrap().parse().unwrap();
@@ -39,26 +37,28 @@ pub fn load_grid_from_file(filename: String) -> (Vec<Vec<u8>>, u8, u8) {
     (grid, rows, cols) 
 }
 
-pub fn save_grid_to_file(filename: String, rows: u8, cols: u8, grid: Vec<Vec<u8>>) {
-    let mut grid_string: String = "".to_string(); 
+pub fn save_grid_to_file(filename: &String, rows: u8, cols: u8, grid: &Vec<Vec<u8>>) -> std::io::Result<()> {
+    
+    let mut file_string: String = "".to_string(); 
+    file_string.push(rows.into()); 
+    file_string.push(' ');
+
+    file_string.push(cols.into()); 
+    file_string.push(' '); 
+
+
     for i in 0..grid.len() {
         for j in 0..grid[i].len() {
-            grid_string.push(grid[i][j]);
-            grid_string.push(' ');
+            file_string.push(grid[i][j].into());
+            file_string.push(' ');
         }
     }
     
-    let mut rows_string = "".to_string();
-    let mut cols_string = "".to_string();
-    
-    rows_string.push(std::char::from_u8(rows)); 
-    rows_string.push(' ');
+    file_string.push('\n'); 
 
-    cols_string.push(std::char::from_u8(cols)); 
-    cols_string.push(' '); 
-
-    let mut output_file = File::create(filename);
-    output_file.write(rows_string, cols_string, grid_string);  
+    let mut output_file = File::create(filename)?;
+    output_file.write(file_string.as_str().as_bytes())?;  
+    Ok(())
 }
 
 fn copy_grid(rows: u8, cols: u8, grid: &Vec<Vec<u8>>) -> Vec<Vec<u8>> {
