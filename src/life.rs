@@ -40,16 +40,16 @@ pub fn load_grid_from_file(filename: String) -> (Vec<Vec<u8>>, u8, u8) {
 pub fn save_grid_to_file(filename: &String, rows: u8, cols: u8, grid: &Vec<Vec<u8>>) {
     
     let mut file_string: String = "".to_string(); 
-    file_string.push(str::from(rows).parse().unwrap());
+    file_string.push_str(&*rows.to_string());
     file_string.push(' ');
 
-    file_string.push(str::from(cols).parse().unwrap());
+    file_string.push_str(&*cols.to_string());
     file_string.push(' '); 
 
 
     for i in 0..grid.len() {
         for j in 0..grid[i].len() {
-            file_string.push(str::from(grid[i][j]).parse().unwrap());
+            file_string.push_str(&*(grid[i][j]).to_string());
             file_string.push(' ');
         }
     }
