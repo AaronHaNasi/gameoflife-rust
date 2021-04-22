@@ -2,12 +2,12 @@ use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 
-pub fn to_string(grid: &Vec<Vec<u8>>) -> String {
+pub fn to_string(grid: &Vec<Vec<char>>) -> String {
     let mut return_string: String = "".to_string(); 
     
     for i in 0..grid.len() {
         for j in 0..grid[i].len() {
-            if grid[i][j] == 0 {
+            if grid[i][j] == '0' {
                 return_string.push_str(" . ");
             } else {
                 return_string.push_str(" X "); 
@@ -18,15 +18,15 @@ pub fn to_string(grid: &Vec<Vec<u8>>) -> String {
     return_string
 }
 
-pub fn load_grid_from_file(filename: String) -> (Vec<Vec<u8>>, u8, u8) {
+pub fn load_grid_from_file(filename: String) -> (Vec<Vec<char>>, char, char) {
 
     let mut contents = fs::read_to_string(filename).unwrap(); 
     let mut iterator = contents.split_whitespace(); 
 
     // let mut read_contents = contents.lines();
 
-    let rows: u8 = iterator.next().unwrap().parse().unwrap();
-    let cols: u8 = iterator.next().unwrap().parse().unwrap();
+    let rows: char = iterator.next().unwrap().parse().unwrap();
+    let cols: char = iterator.next().unwrap().parse().unwrap();
 
     let mut grid = vec![vec![0; rows.into()]; cols.into()];
     

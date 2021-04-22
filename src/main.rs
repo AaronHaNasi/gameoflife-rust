@@ -30,8 +30,8 @@ fn main() {
         process::exit(1);
     }
     
-    let mut rows: u8;
-    let mut cols: u8;
+    let mut rows: char;
+    let mut cols: char;
     let filename = &args[1];
     
     let mut game_info = life::load_grid_from_file(filename.to_string());
