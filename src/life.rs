@@ -37,7 +37,7 @@ pub fn load_grid_from_file(filename: String) -> (Vec<Vec<u8>>, u8, u8) {
     (grid, rows, cols) 
 }
 
-pub fn save_grid_to_file(filename: &String, rows: u8, cols: u8, grid: &Vec<Vec<u8>>) -> std::io::Result<()> {
+pub fn save_grid_to_file(filename: &String, rows: u8, cols: u8, grid: &Vec<Vec<u8>>) {
     
     let mut file_string: String = "".to_string(); 
     file_string.push(rows.into()); 
@@ -56,9 +56,10 @@ pub fn save_grid_to_file(filename: &String, rows: u8, cols: u8, grid: &Vec<Vec<u
     
     file_string.push('\n'); 
 
-    let mut output_file = File::create(filename)?;
-    output_file.write(file_string.as_str().as_bytes())?;  
-    Ok(())
+    let mut output_file = File::create(filename);
+    // output_file.write(file_string.as_str().as_bytes())?;  
+    // Ok(())
+    fs::write(filename, file_string.as_str()).expect("unable to write to file"); 
 }
 
 fn copy_grid(rows: u8, cols: u8, grid: &Vec<Vec<u8>>) -> Vec<Vec<u8>> {
