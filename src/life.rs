@@ -40,7 +40,25 @@ pub fn load_grid_from_file(filename: String) -> (Vec<Vec<u8>>, u8, u8) {
 }
 
 pub fn save_grid_to_file(filename: String, rows: u8, cols: u8, grid: Vec<Vec<u8>>) {
+    let mut grid_string: String = "".to_string(); 
+    for i in 0..grid.len() {
+        for j in 0..grid[i].len() {
+            grid_string.push(grid[i][j]);
+            grid_string.push(' ');
+        }
+    }
+    
+    let mut rows_string = "".to_string();
+    let mut cols_string = "".to_string();
+    
+    rows_string.push(std::char::from_u8(rows)); 
+    rows_string.push(' ');
 
+    cols_string.push(std::char::from_u8(cols)); 
+    cols_string.push(' '); 
+
+    let mut output_file = File::create(filename);
+    output_file.write(rows_string, cols_string, grid_string);  
 }
 
 fn copy_grid(rows: u8, cols: u8, grid: &Vec<Vec<u8>>) -> Vec<Vec<u8>> {
