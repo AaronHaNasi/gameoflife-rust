@@ -5,6 +5,19 @@ use std::io::*;
 mod life;
 use life::*;
 
+fn get_user_input() -> String {
+    let mut user_input = "".to_string();
+    
+    let _=stdout().flush(); 
+    stdin().read_line(&mut user_input);
+    if let Some('\n')=user_input.chars().next_back() {
+        user_input.pop();
+    }
+    if let Some('\r')=user_input.chars().next_back() {
+        user_input.pop(); 
+    }
+    user_input
+}
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -28,28 +41,34 @@ fn main() {
     let cols = game_info.2;
 
     let mut display_string = life::to_string(&grid);
-    // println!("{}\n", display_string);
     
-    let mut user_input: String = "".to_string();
+    let mut user_input: String;
     
     loop {
-
         println!("{}\n", display_string);
         println!("Press q to quit, n to iterate, w to save to file, or any other key to move to next generation: ");
+        user_input = get_user_input(); 
 
-        stdin().read_line(&mut user_input);
-
-        if user_input == "q\n" {
+        if user_input == "q" {
             break
-        } else if user_input == "n\n" {
-            print!("How many iterations? "); 
-        } else if user_input == "w\n" {
-            print!("Input file name: "); 
-            stdin().read_line(&mut user_input); 
+        } else if user_input == "n" {
+            println!("How many iterations? ");
+            user_input = get_user_input(); 
+            let mut iterations: i32 = user_input.parse().unwrap(); 
+            while iterations > 0 {
+                grid = mutate_grid(rows, cols, &grid); 
+                iterations = iterations - 1; 
+            }
+            
+        } else if user_input == "w" {
+            println!("Input file name: "); 
+            user_input = get_user_input(); 
+
         } else {
             grid = mutate_grid(rows, cols, &grid);
             display_string = to_string(&grid);
 
         }
+        display_string = life::to_string(&grid); 
     }
 }
